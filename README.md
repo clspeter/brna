@@ -39,11 +39,15 @@ actions through the Model Context Protocol.
 
 ## Quick Start In An Expo App
 
-Install the CLI and runtime packages:
+Install all brna packages as dev dependencies — none of them are used by your
+production bundle. `@brna/babel-plugin` no-ops when `NODE_ENV=production`, so
+no `@brna/runtime/auto` require is injected into release builds. The auto
+entry is itself gated behind `globalThis.__DEV__ === true` as a second layer.
+`@brna/metro-plugin` only runs while Metro is bundling, and `@brna/cli` is
+invoked from your dev machine.
 
 ```sh
-npm install --save-dev @brna/cli
-npm install @brna/runtime @brna/metro-plugin @brna/babel-plugin
+npm install --save-dev @brna/cli @brna/runtime @brna/metro-plugin @brna/babel-plugin
 ```
 
 The CLI runs on Node.js 18 or newer.
