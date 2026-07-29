@@ -205,11 +205,11 @@ describe("formatDevicesTable", () => {
         platform: "ios",
         device_name: "iPhone 15",
         os_version: "17.4",
-        app_name: "Hotcake",
+        app_name: "Sample App",
         app_version: "1.2.3",
       },
     ]);
-    expect(out).toContain("Hotcake");
+    expect(out).toContain("Sample App");
     expect(out).toContain("1.2.3");
     expect(out).not.toContain("unknown");
   });
@@ -256,7 +256,7 @@ describe("formatDevicesTable", () => {
         id: "dev-\x1b[31mred\x1b[0m",
         platform: "ios\nsim",
         os_version: "17.4\r",
-        app_name: "Hot\tcake",
+        app_name: "Sample\tApp",
         app_version: "1.2.3\x7f",
       },
     ]);
@@ -264,7 +264,7 @@ describe("formatDevicesTable", () => {
     expect(out).toContain("dev-\\x1b[31mred\\x1b[0m");
     expect(out).toContain("ios\\nsim");
     expect(out).toContain("17.4\\r");
-    expect(out).toContain("Hot\\tcake");
+    expect(out).toContain("Sample\\tApp");
     expect(out).toContain("1.2.3\\x7f");
     expect(out).not.toContain("\x1b");
     expect(out.trimEnd().split("\n")).toHaveLength(2);
@@ -284,12 +284,12 @@ describe("brna devices --json", () => {
 
   test("preserves populated app metadata fields", async () => {
     const res = await run(["--json"], [
-      { id: "dev-a", platform: "ios", app_name: "Hotcake", app_version: "1.2.3", app_bundle_id: "com.example.hotcake" },
+      { id: "dev-a", platform: "ios", app_name: "Sample App", app_version: "1.2.3", app_bundle_id: "com.example.sampleapp" },
     ]);
     expect(res.code).toBe(0);
     const parsed = JSON.parse(res.stdout) as { devices: Array<Record<string, unknown>> };
-    expect(parsed.devices[0]!.app_name).toBe("Hotcake");
-    expect(parsed.devices[0]!.app_bundle_id).toBe("com.example.hotcake");
+    expect(parsed.devices[0]!.app_name).toBe("Sample App");
+    expect(parsed.devices[0]!.app_bundle_id).toBe("com.example.sampleapp");
     expect(parsed.devices[0]!.app_version).toBe("1.2.3");
   });
 });

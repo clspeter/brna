@@ -82,14 +82,14 @@ describe("multi-device registry", () => {
     attach(bridge, {
       device_id: "dev-a",
       platform: "ios",
-      app_name: "Hotcake",
+      app_name: "Sample App",
       app_version: "1.2.3",
-      app_bundle_id: "com.example.hotcake",
+      app_bundle_id: "com.example.sampleapp",
     });
     const a = bridge.listDevices().find((d) => d.id === "dev-a");
-    expect(a?.app_name).toBe("Hotcake");
+    expect(a?.app_name).toBe("Sample App");
     expect(a?.app_version).toBe("1.2.3");
-    expect(a?.app_bundle_id).toBe("com.example.hotcake");
+    expect(a?.app_bundle_id).toBe("com.example.sampleapp");
   });
 
   test("listDevices captures native-device hints from hello frame", () => {
